@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHOLE Services — Web Solutions</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+
+
+<!-- PAGE LOADER -->
+<div id="page-loader">
+  <div class="loader-text">SHOLE</div>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-text-wrapper">
+    <div class="nav-text">SHOLE</div>
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <a href="../index.html">HOME</a>
+  <a href="limited.html">LIMITED</a>
+  <a href="bimbux.html">BIMBUX</a>
+  <a href="services.html">SERVICES</a>
+</div>
+
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+
+  
+
+  <!-- SERVICES FORM -->
+  <div class="services-form">
+
+    <form action="mailto:yourmail@example.com" method="POST" enctype="text/plain">
+
+      <div class="field">
+        <label>FULL NAME</label>
+        <input type="text" name="Name" required>
+      </div>
+
+      <div class="field">
+        <label>EMAIL ADDRESS</label>
+        <input type="email" name="Email" required>
+      </div>
+
+      <div class="field">
+        <label>TYPE OF SERVICE</label>
+        <select name="Service">
+          <option>Website</option>
+          <option>Blog</option>
+          <option>Webshop</option>
+          <option>Landing Page</option>
+          <option>Custom Web App</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>PROJECT DESCRIPTION</label>
+        <textarea name="Message" rows="5"></textarea>
+      </div>
+
+      <div class="field">
+        <label>BUDGET RANGE</label>
+        <select name="Budget">
+          <option>Under €500</option>
+          <option>€500 – €1000</option>
+          <option>€1000 – €3000</option>
+          <option>€3000+</option>
+        </select>
+      </div>
+
+      <button class="btn" type="submit">SEND REQUEST</button>
+
+    </form>
+
+  </div>
+
+  <footer>
+    SHOLE Services © 2026 — Web Design & Development Solutions
+  </footer>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
