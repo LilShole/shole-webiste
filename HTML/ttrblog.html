@@ -56,12 +56,17 @@
 <script>
 const blogList = document.getElementById("blogList");
 
-fetch("/content/bimbux/ttr/posts/index.json")
-  .then(response => {
-    if (!response.ok) throw new Error("Blog JSON not found");
-    return response.json();
+fetch("../content/bimbux/ttr/posts/index.json")
+  .then(res => {
+    if (!res.ok) throw new Error("JSON not found");
+    return res.json();
   })
   .then(posts => {
+    if (!posts.length) {
+      blogList.innerHTML = "<p>No blog posts found.</p>";
+      return;
+    }
+
     posts
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .forEach(post => {
@@ -79,10 +84,11 @@ fetch("/content/bimbux/ttr/posts/index.json")
       });
   })
   .catch(err => {
-    blogList.innerHTML = "<p>No blog posts found.</p>";
     console.error(err);
+    blogList.innerHTML = "<p>No blog posts found.</p>";
   });
 </script>
+
 
 </body>
 </html>
