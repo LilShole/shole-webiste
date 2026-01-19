@@ -5,15 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TICK TOCK RUSH — Dev Blog</title>
 
+  <!-- FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- MAIN CSS -->
   <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
-<header class="sub-header"
-        data-title="DEV BLOG"
-        data-subtitle="Development updates and behind the scenes">
-</header>
 
 <!-- PAGE LOADER -->
 <div id="page-loader">
@@ -39,10 +38,10 @@
     <p>Development updates, features and behind the scenes</p>
   </header>
 
-  <!-- BLOG LIST -->
-<section class="blog-list" id="blogList">
-  <!-- Posts se ubacuju JS-om -->
-</section>
+  <!-- BLOG LIST (DINAMIČKI) -->
+  <section class="blog-list" id="blogList">
+    <!-- JS ubacuje postove -->
+  </section>
 
   <footer>
     BIMBUX Studios © 2026 — Game Development & Interactive Experiences
@@ -50,12 +49,18 @@
 
 </div>
 
+<!-- MAIN JS -->
 <script src="../js/main.js"></script>
+
+<!-- BLOG FETCH -->
 <script>
 const blogList = document.getElementById("blogList");
 
 fetch("/content/bimbux/ttr/posts/index.json")
-  .then(res => res.json())
+  .then(response => {
+    if (!response.ok) throw new Error("Blog JSON not found");
+    return response.json();
+  })
   .then(posts => {
     posts
       .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -72,6 +77,10 @@ fetch("/content/bimbux/ttr/posts/index.json")
 
         blogList.appendChild(article);
       });
+  })
+  .catch(err => {
+    blogList.innerHTML = "<p>No blog posts found.</p>";
+    console.error(err);
   });
 </script>
 
