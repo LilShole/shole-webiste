@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog Post</title>
+  <meta charset="UTF-8">
+  <title>TTR — Blog Post</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/main.css">
@@ -11,69 +11,34 @@
 
 <body>
 
-<!-- PAGE LOADER -->
-<div id="page-loader">
-  <div class="loader-text">BLOG</div>
-</div>
-
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="nav-text-wrapper">
-    <div class="nav-text">TICK TOCK RUSH</div>
-  </div>
-</div>
-
-<a class="back" href="ttrblog.html">← BACK</a>
-
-<canvas id="bg"></canvas>
+<a class="back" href="ttrblog.html">← BACK TO BLOG</a>
 
 <div class="container">
 
-  <article class="blog-post" id="post">
-    <h1 id="postTitle"></h1>
-    <span class="blog-date" id="postDate"></span>
-
-    <div class="post-content" id="postContent"></div>
-
-    <div class="post-images" id="postImages"></div>
+  <article id="post">
+    <h1 id="post-title"></h1>
+    <span class="blog-date" id="post-date"></span>
+    <div id="post-content"></div>
   </article>
 
-  <footer>
-    BIMBUX Studios © 2026 — Game Development & Interactive Experiences
-  </footer>
-
 </div>
-
-<script src="../js/main.js"></script>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
 
-fetch("/content/bimbux/ttr/posts/index.json")
-  .then(res => res.json())
-  .then(posts => {
-    const post = posts.find(p => p.slug === slug);
+fetch(`/content/bimbux/ttr/posts/${slug}.md`)
+  .then(res => res.text())
+  .then(text => {
+    const [, frontmatter, content] = text.split('---');
 
-    if (!post) {
-      document.getElementById("post").innerHTML = "<h2>Post not found</h2>";
-      return;
-    }
+    const titleMatch = frontmatter.match(/title:\s*(.*)/);
+    const dateMatch = frontmatter.match(/date:\s*(.*)/);
 
-    document.title = post.title;
-    document.getElementById("postTitle").innerText = post.title;
-    document.getElementById("postDate").innerText =
-      new Date(post.date).toDateString();
-
-    document.getElementById("postContent").innerHTML = post.content;
-
-    const imagesContainer = document.getElementById("postImages");
-    post.images.forEach(src => {
-      const img = document.createElement("img");
-      img.src = src;
-      img.className = "post-image";
-      imagesContainer.appendChild(img);
-    });
+    document.getElementById("post-title").innerText = titleMatch?.[1] || "";
+    document.getElementById("post-date").innerText = dateMatch?.[1] || "";
+    document.getElementById("post-content").innerHTML =
+      content.replace(/\n/g, "<br>");
   });
 </script>
 
