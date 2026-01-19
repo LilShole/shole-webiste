@@ -62,9 +62,7 @@ fetch("/content/bimbux/ttr/posts/index.json")
     document.getElementById("postDate").textContent =
       new Date(post.date).toDateString();
 
-    document.getElementById("postContent").innerHTML = `
-      <p>${post.excerpt}</p>
-    `;
+   document.getElementById("postContent").innerHTML = post.content;
   });
 </script>
 
