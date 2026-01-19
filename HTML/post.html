@@ -13,7 +13,7 @@
 
 <!-- PAGE LOADER -->
 <div id="page-loader">
-  <div class="loader-text">TTR</div>
+  <div class="loader-text">BLOG</div>
 </div>
 
 <!-- NAVBAR -->
@@ -29,10 +29,13 @@
 
 <div class="container">
 
-  <article class="blog-post" id="blogPost">
+  <article class="blog-post" id="post">
     <h1 id="postTitle"></h1>
     <span class="blog-date" id="postDate"></span>
+
     <div class="post-content" id="postContent"></div>
+
+    <div class="post-images" id="postImages"></div>
   </article>
 
   <footer>
@@ -53,16 +56,24 @@ fetch("/content/bimbux/ttr/posts/index.json")
     const post = posts.find(p => p.slug === slug);
 
     if (!post) {
-      document.getElementById("blogPost").innerHTML = "<p>Post not found.</p>";
+      document.getElementById("post").innerHTML = "<h2>Post not found</h2>";
       return;
     }
 
-    document.title = post.title + " — Dev Blog";
-    document.getElementById("postTitle").textContent = post.title;
-    document.getElementById("postDate").textContent =
+    document.title = post.title;
+    document.getElementById("postTitle").innerText = post.title;
+    document.getElementById("postDate").innerText =
       new Date(post.date).toDateString();
 
-   document.getElementById("postContent").innerHTML = post.content;
+    document.getElementById("postContent").innerHTML = post.content;
+
+    const imagesContainer = document.getElementById("postImages");
+    post.images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "post-image";
+      imagesContainer.appendChild(img);
+    });
   });
 </script>
 

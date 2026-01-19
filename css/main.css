@@ -437,3 +437,24 @@ body.loaded {
   z-index: 0;
   pointer-events: none;
 }
+.blog-post {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.post-content p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.post-images {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 12px;
+}
+
