@@ -40,28 +40,9 @@
   </header>
 
   <!-- BLOG LIST -->
-  <section class="blog-list">
-
-    <article class="blog-card">
-      <span class="blog-date">JAN 12, 2026</span>
-      <h2>First Playable Build</h2>
-      <p>
-        We’ve reached a major milestone with our first fully playable build.
-        Core mechanics are now locked in.
-      </p>
-      <a href="#" class="btn">READ MORE</a>
-    </article>
-
-    <article class="blog-card">
-      <span class="blog-date">DEC 28, 2025</span>
-      <h2>Visual Direction Reveal</h2>
-      <p>
-        A look into the art style and atmosphere shaping Tick Tock Rush.
-      </p>
-      <a href="#" class="btn">READ MORE</a>
-    </article>
-
-  </section>
+<section class="blog-list" id="blogList">
+  <!-- Posts se ubacuju JS-om -->
+</section>
 
   <footer>
     BIMBUX Studios © 2026 — Game Development & Interactive Experiences
@@ -70,5 +51,29 @@
 </div>
 
 <script src="../js/main.js"></script>
+<script>
+const blogList = document.getElementById("blogList");
+
+fetch("/content/bimbux/ttr/posts/index.json")
+  .then(res => res.json())
+  .then(posts => {
+    posts
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .forEach(post => {
+        const article = document.createElement("article");
+        article.className = "blog-card";
+
+        article.innerHTML = `
+          <span class="blog-date">${new Date(post.date).toDateString()}</span>
+          <h2>${post.title}</h2>
+          <p>${post.excerpt}</p>
+          <a href="post.html?slug=${post.slug}" class="btn">READ MORE</a>
+        `;
+
+        blogList.appendChild(article);
+      });
+  });
+</script>
+
 </body>
 </html>
